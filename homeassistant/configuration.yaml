@@ -1,0 +1,61 @@
+
+# Loads default set of integrations. Do not remove.
+default_config:
+
+recorder:
+  db_url: !secret postgres_endpoint
+  db_retry_wait: 15
+  commit_interval: 60
+  exclude:
+    domains:
+      - automation
+      - updater
+    entity_globs:
+      - sensor.weather_*
+    entities:
+      - sun.sun
+      - sensor.last_boot
+      - sensor.date
+    event_types:
+      - call_service
+
+tts:
+  - platform: google_translate
+
+camera:
+  - platform: xiaomi_cloud_map_extractor
+    host: !secret roborock_host
+    token: !secret roborock_token
+    username: !secret roborock_user
+    password: !secret roborock_password
+    attributes:
+      - calibration_points
+    colors:
+      color_map_inside: [50, 50, 50]
+      color_map_outside: [0, 0, 0]
+      color_map_wall: [255, 255, 255]
+      color_map_wall_v2: [255, 255, 255]
+      color_grey_wall: [255, 255, 255]
+      color_ignored_obstacle: [255, 0, 0, 255]
+      color_obstacle: [255, 0, 0, 127]
+      color_path: [147, 194, 238]
+      color_goto_path: [0, 255, 0]
+      color_predicted_path: [255, 255, 0, 0]
+      color_cleaned_area: [0, 102, 0, 127]
+      color_zones: [0xAD, 0xD8, 0xFF, 0]
+      color_zones_outline: [0xAD, 0xD8, 0xFF]
+      color_virtual_walls: [255, 0, 0]
+      color_new_discovered_area: [0, 255, 255]
+      color_no_go_zones: [255, 0, 0, 127]
+      color_no_go_zones_outline: [255, 0, 0, 0]
+      color_no_mop_zones: [163, 130, 211, 0]
+      color_no_mop_zones_outline: [163, 130, 211, 0]
+      color_charger: [0x66, 0xfe, 0xda, 0x7f]
+      color_robo: [75, 235, 149]
+      color_room_names: [127, 127, 127]
+      color_unknown: [0, 0, 0]
+      color_scan: [0, 255, 255, 127]
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
